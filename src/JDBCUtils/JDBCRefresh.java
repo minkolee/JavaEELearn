@@ -15,29 +15,23 @@ public class JDBCRefresh {
 
     public static void main(String[] args) {
         // 注册驱动
-        Connection connection = null;
+        Connection connection;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            throw new RuntimeException("驱动注册失败");
-        }
-        try {
-            String url = "jdbc:mysql://localhost:3306/mydatabase?useSSL=false";
-            String user = "root";
-            String password = "fflym0709";
+        connection = Tools.getConnection();
 
-            connection = DriverManager.getConnection(url, user, password);
+        try {
             ps = connection.prepareStatement("SELECT * FROM goods");
             rs = ps.executeQuery();
-
             while (rs.next()) {
-                System.out.println(rs.getInt("id")+'|'+rs.getString("name"));
+                System.out.println(rs.getInt("id") + " | " + rs.getString("name"));
             }
         } catch (SQLException ex) {
             throw new RuntimeException("数据库连接失败");
+
+        } finally {
+            Tools.slientCloseAll(connection, ps, rs);
         }
     }
 }

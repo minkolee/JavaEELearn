@@ -16,9 +16,8 @@ public class MyThread implements Runnable {
 
     public void run() {
         try {
-            PreparedStatement pst = connection.prepareStatement("SELECT  * FROM  goods");
+            PreparedStatement pst = connection.prepareStatement("SELECT * FROM goods");
             ResultSet rs = pst.executeQuery();
-
             while (rs.next()) {
                 System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | " + rs.getInt("quantity"));
             }

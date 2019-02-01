@@ -1,4 +1,10 @@
-package MySource;
+package EnhancedMySource.MySource;
+
+/**
+ * 增强connection的方法其实很简单,原来的对象实现了什么接口,就新建一个对象实现那个接口,然后包装那个类,等于用一个包装类替代原来的类的接口
+ *
+ */
+
 
 import JDBCUtils.Tools;
 
@@ -19,10 +25,17 @@ public class MyDataSource implements DataSource {
     static {
         for (int i = 0; i <3; i++) {
             Connection conn = Tools.getConnection();
-            pool.add(conn);
+            // 新版就不能使用直接的连接了,而要使用包装对象
+            MyConnection connection = new MyConnection(pool, conn);
+            pool.add(connection);
         }
     }
 
+    public static void main(String[] args) {
+        for (Connection c : pool) {
+            System.out.println(c);
+        }
+    }
 
     public void release(Connection connection) {
         pool.add(connection);

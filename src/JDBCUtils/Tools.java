@@ -5,9 +5,8 @@ import java.sql.*;
 
 public class Tools {
 
-    private static Connection connection;
-
-    static {
+    public static Connection getConnection() {
+        Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/mydatabase?useSSL=false";
@@ -18,12 +17,11 @@ public class Tools {
             ex.printStackTrace();
             throw new RuntimeException(ex);
         }
-
-    }
-
-    public static Connection getConnection() {
         return connection;
     }
+
+
+
 
     public static void slientCloseAll(Connection connection, PreparedStatement preparedStatement, ResultSet rs) {
         try {

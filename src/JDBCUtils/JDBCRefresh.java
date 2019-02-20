@@ -1,5 +1,8 @@
 package JDBCUtils;
 
+import com.mchange.v2.c3p0.impl.DefaultConnectionTester;
+import org.apache.commons.dbutils.QueryRunner;
+
 import java.sql.*;
 
 /**
@@ -34,4 +37,5 @@ public class JDBCRefresh {
             Tools.slientCloseAll(connection, ps, rs);
         }
     }
+
 }
